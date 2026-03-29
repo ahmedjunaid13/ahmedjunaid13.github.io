@@ -1,769 +1,1271 @@
 <!DOCTYPE html>
 <html lang="en">
-  
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ahmed Junaid — Mechatronics Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <title>Ahmed Junaid Web</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+    :root {
+      --bg: #0a0a0a;
+      --bg2: #111111;
+      --bg3: #161616;
+      --border: #222222;
+      --text: #e8e4dc;
+      --muted: #666;
+      --accent: #c8a96e;
+      --accent2: #4a8c6f;
+      --white: #f5f0e8;
+      --mono: 'JetBrains Mono', monospace;
+      --display: 'Bebas Neue', sans-serif;
+      --body: 'DM Sans', sans-serif;
+    }
 
-  <!-- Favicons -->
-  <link href="assets/img/LOGO-PIC2.jpg" rel="icon">
-  <link href="assets/img/LOGO-PIC2.jpg" rel="apple-touch-icon">
+    html { scroll-behavior: smooth; }
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      cursor: default;
+    }
 
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+    /* ─── CUSTOM CURSOR ─── */
+    .cursor {
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.15s ease;
+    }
+    .cursor-ring {
+      width: 32px; height: 32px;
+      border: 1px solid var(--accent);
+      border-radius: 50%;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0.5;
+      transition: transform 0.4s ease, opacity 0.3s;
+    }
 
-  <!-- =======================================================
-  * Template Name: DevFolio
-  * Updated: May 30 2023 with Bootstrap v5.3.0
-  * Template URL: https://bootstrapmade.com/devfolio-bootstrap-portfolio-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-cta {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--bg);
+      background: var(--accent);
+      padding: 8px 20px;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-cta:hover { background: var(--white); }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 48px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(200,169,110,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(200,169,110,0.03) 1px, transparent 1px);
+      background-size: 80px 80px;
+      pointer-events: none;
+    }
+
+    .hero-noise {
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      opacity: 0.4;
+    }
+
+    .hero-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+
+    .hero-title {
+      font-family: var(--display);
+      font-size: clamp(72px, 12vw, 180px);
+      line-height: 0.92;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.4s forwards;
+    }
+
+    .hero-title span { color: var(--accent); }
+
+    .hero-bottom {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-top: 48px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.6s forwards;
+    }
+
+    .hero-desc {
+      max-width: 400px;
+      font-size: 15px;
+      font-weight: 300;
+      color: #888;
+      line-height: 1.7;
+    }
+
+    .hero-tags {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 6px 14px;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      right: 48px;
+      bottom: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: fadeIn 1s 1.2s forwards;
+    }
+
+    .hero-scroll span {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(var(--accent), transparent);
+      animation: scrollPulse 2s infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.3); }
+    }
+
+    /* ─── SECTION SHARED ─── */
+    section {
+      padding: 120px 48px;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .section-title {
+      font-family: var(--display);
+      font-size: clamp(48px, 7vw, 96px);
+      line-height: 1;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      margin-bottom: 64px;
+    }
+
+    /* ─── ABOUT ─── */
+    #about {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .about-text p {
+      font-size: 16px;
+      font-weight: 300;
+      color: #999;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .about-text p strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .profile-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      padding: 40px;
+    }
+
+    .profile-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .profile-item:last-of-type { border-bottom: none; }
+
+    .profile-key {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .profile-val {
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .skills-section { margin-top: 40px; }
+
+    .skill-category {
+      margin-bottom: 28px;
+    }
+
+    .skill-cat-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .skill-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      background: var(--bg);
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+
+    .chip:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(200,169,110,0.05);
+    }
+
+    /* ─── ACHIEVEMENTS ─── */
+    #achievements {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .achievement-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      padding: 40px 36px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .achievement-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 3px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .achievement-card:hover { background: var(--bg3); border-color: #333; }
+    .achievement-card:hover::before { transform: scaleX(1); }
+
+    .achievement-num {
+      font-family: var(--display);
+      font-size: 64px;
+      line-height: 1;
+      color: var(--border);
+      margin-bottom: 24px;
+      transition: color 0.3s;
+    }
+    .achievement-card:hover .achievement-num { color: #2a2a2a; }
+
+    .achievement-icon {
+      font-size: 22px;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .achievement-title {
+      font-family: var(--display);
+      font-size: 26px;
+      letter-spacing: 0.03em;
+      color: var(--white);
+      margin-bottom: 16px;
+      line-height: 1.1;
+    }
+
+    .achievement-desc {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ─── STATS BAR ─── */
+    #stats {
+      background: var(--accent);
+      padding: 60px 48px;
+      border: none;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 0 40px;
+      border-right: 1px solid rgba(0,0,0,0.15);
+    }
+    .stat-item:last-child { border-right: none; }
+
+    .stat-num {
+      font-family: var(--display);
+      font-size: 72px;
+      line-height: 1;
+      color: var(--bg);
+    }
+
+    .stat-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(10,10,10,0.6);
+      margin-top: 8px;
+    }
+
+    /* ─── PROJECTS ─── */
+    #work {
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .project-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      padding: 36px;
+      position: relative;
+      transition: background 0.3s, transform 0.3s;
+      cursor: pointer;
+    }
+
+    .project-card:hover {
+      background: #1a1a1a;
+      transform: translateY(-4px);
+    }
+
+    .project-category {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .project-title {
+      font-family: var(--display);
+      font-size: 28px;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .project-desc {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .project-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .project-date {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    .project-arrow {
+      width: 32px; height: 32px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: var(--muted);
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .project-card:hover .project-arrow {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg);
+    }
+
+    /* ─── HOBBIES ─── */
+    #personal {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hobbies-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .hobby-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      aspect-ratio: 3/4;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 32px;
+    }
+
+    .hobby-icon-bg {
+      position: absolute;
+      top: 32px; right: 32px;
+      font-size: 80px;
+      opacity: 0.06;
+      line-height: 1;
+    }
+
+    .hobby-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .hobby-title {
+      font-family: var(--display);
+      font-size: 36px;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .hobby-desc {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ─── CONTACT ─── */
+    #contact {
+      background: var(--bg2);
+    }
+
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .contact-title {
+      font-family: var(--display);
+      font-size: clamp(48px, 6vw, 80px);
+      line-height: 1;
+      color: var(--white);
+      margin-bottom: 32px;
+    }
+
+    .contact-title span { color: var(--accent); }
+
+    .contact-text {
+      font-size: 15px;
+      font-weight: 300;
+      color: #888;
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .contact-detail-icon {
+      width: 40px; height: 40px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .contact-detail-text {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      color: var(--text);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 12px;
+      margin-top: 40px;
+    }
+
+    .social-link {
+      width: 44px; height: 44px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .social-link:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg);
+    }
+
+    .contact-cta-box {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      padding: 56px 48px;
+    }
+
+    .cta-heading {
+      font-family: var(--display);
+      font-size: 40px;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .cta-sub {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--accent);
+      color: var(--bg);
+      text-decoration: none;
+      padding: 16px 32px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: background 0.2s;
+      font-weight: 500;
+    }
+    .cta-btn:hover { background: var(--white); }
+
+    .cta-btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      margin-left: 12px;
+    }
+    .cta-btn-outline:hover {
+      background: var(--bg);
+      border-color: var(--text);
+      color: var(--white);
+    }
+
+    .cta-cert-list {
+      margin-top: 40px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+
+    .cert-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .cert-dot {
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 32px 48px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-copy {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    .footer-back {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-back:hover { color: var(--accent); }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(32px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      section { padding: 80px 24px; }
+      #hero { padding: 0 24px 64px; }
+      .about-grid,
+      .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+      .achievements-grid,
+      .projects-grid,
+      .hobbies-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+      .stat-item { border-right: none; }
+      #stats { padding: 60px 24px; }
+      footer { flex-direction: column; gap: 16px; text-align: center; }
+    }
+  </style>
 </head>
-
 <body>
 
-  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top">
-    <div class="container d-flex align-items-center justify-content-between">
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
 
-      <h1 class="logo"><a href="index.html">Ahmed Junaid </a></h1>
-      <!-- Uncomment below if you prefer to use an image logo -->
-    <!--  <a href="index.html" class="logo"><img src="assets/img/LOGO-PIC2.jpg" alt="" class="img-fluid"></a>-->
+  <!-- ─── NAV ─── -->
+  <nav>
+    <a class="nav-logo" href="#hero">AJ.dev</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#achievements">Achievements</a></li>
+      <li><a href="#work">Projects</a></li>
+      <li><a href="#personal">Hobbies</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="nav-cta" href="assets/img/Ahmed Junaid Resume .pdf" target="_blank">Resume ↗</a>
+  </nav>
 
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#achievements">Achievements</a></li>
-          <li><a class="nav-link scrollto " href="#work">Work</a></li>
-          <li><a class="nav-link scrollto " href="#personal">Personal Hobbies</a></li>
-          <li class="dropdown"><a href="#"><span>Certifications</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="forms/CompiledCerti.pdf">Professional Google Analytics</a></li>
-              
-              <li class="dropdown"><a href="assets/img/Karate certificates.pdf"><span>Int Martial Arts Karate</span> <i class="bi bi-chevron-right"></i></a></li>
-              
-              <li><a href="#">Academic Certifications</a></li>
-              
-              <li><a href="extra curricular.pdf">Harvard MUN</a></li>
-              
-            </ul>
-          </li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <li><a class="nav-link scrollto" href="assets/img/Ahmed Junaid Resume .pdf">Resume</a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
+  <!-- ─── HERO ─── -->
+  <section id="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-noise"></div>
 
-    </div>
-  </header><!-- End Header -->
+    <div class="hero-label">Mechatronics Engineering · Developer · Analyst · Builder</div>
 
-  <!-- ======= Hero Section ======= -->
-  <div id="hero" class="hero route bg-image" style="background-image: url(assets/img/Wallpaper.jpg)">
-    <div class="overlay-itro"></div>
-    <div class="hero-content display-table">
-      <div class="table-cell">
-        <div class="container">
-          <!--<p class="display-6 color-d">Hello, world!</p>-->
-          <h1 class="hero-title mb-4">I am Ahmed  Junaid</h1>
-          <p class="hero-subtitle"><span class="typed" data-typed-items="Student, Developer, Freelancer, Sales Rep, Data Analyst , Athlete"></span></p>
-          <!-- <p class="pt-3"><a class="btn btn-primary btn js-scroll px-4" href="#about" role="button">Learn More</a></p> -->
-        </div>
+    <h1 class="hero-title">
+      Ahmed<br><span>Junaid</span>
+    </h1>
+
+    <div class="hero-bottom">
+      <p class="hero-desc">
+        Mechatronics engineer who builds at the intersection of hardware, software, and data. I turn complex problems into working systems — in code, CAD, and the real world.
+      </p>
+      <div class="hero-tags">
+        <span class="tag">C / Python / R</span>
+        <span class="tag">SolidWorks</span>
+        <span class="tag">HTML / Web</span>
+        <span class="tag">Data Analytics</span>
+        <span class="tag">Karate Black Belt</span>
+        <span class="tag">Harvard MUN</span>
       </div>
     </div>
-  </div><!-- End Hero Section -->
 
-  <main id="main">
-
-  <!-- ======= About Section ======= -->
-<section id="about" class="about-mf sect-pt4 route">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="box-shadow-full"> <!-- Add the wrapper div -->
-          <div class="row">
-            <div class="col-md-6">
-              <div class="about-info">
-                <div class="title-box-2">
-                  <h5 class="title-left">Profile</h5>
-                </div>
-                <p><span class="title-s">Name: </span> <span>Ahmed Junaid</span></p>
-                <p><span class="title-s">Profession: </span> <span>Full-Time Engineering Student</span></p>
-                <p><span class="title-s">Email: </span> <span>ahmed.junaid13@outlook.com</span></p>
-                
-              </div>
-              <div class="skill-mf">
-                <p class="title-s">Skills:</p>
-                <span>C-Programming Language</span> <span class="pull-right">45%</span>
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" style="width: 45%;" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <span>HTML</span> <span class="pull-right">75%</span>
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <span>R-Programming Language</span> <span class="pull-right">30%</span>
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <span>Python</span> <span class="pull-right">15%</span>
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <span>SolidWorks</span> <span class="pull-right">85%</span>
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <span>Adobe Photoshop & Animate</span> <span class="pull-right">50%</span>
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="about-me pt-4 pt-md-0">
-                <div class="title-box-2">
-                  <h5 class="title-left">About me</h5>
-                </div>
-                <p class="lead">
-                  I'm a Mechatronics student from Saudi Arabia, currently studying in Canada.
-                  I left my home country to pursue a future in the field of mechatronics and expand my horizons.
-                  With a passion for technology and innovation, I'm driven to become a leader in this dynamic field.
-                  Through academic excellence, practical projects, and a global network, I strive to create innovative
-                  solutions and make a positive impact on society. Join me on this exciting journey of growth and discovery!
-                </p>
-                <p class="lead">
-                  I actively engage in extracurricular activities such as event organizing, project management, and research.
-                  I excel in planning and coordinating events, possess strong project management skills,
-                  and am dedicated to advancing mechatronics through research and analysis.
-                </p>
-                <p class="lead">
-                  With past job experiences in professional sales and internships across diverse companies,
-                  I have acquired valuable skills and experiences that enable me to perform at my best.
-                  Through my roles in sales, I developed strong communication and interpersonal skills, along with
-                  a deep understanding of customer needs. Additionally, my internships exposed me to different industries,
-                  providing me with a well-rounded perspective and a versatile approach to problem-solving.
-                  These experiences have prepared me to excel in any professional setting and contribute effectively to the success
-                  of a team or organization.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
     </div>
-  </div>
-</section>
+  </section>
 
+  <!-- ─── ABOUT ─── -->
+  <section id="about">
+    <div class="section-label">01 — Who I Am</div>
+    <h2 class="section-title">About</h2>
 
-
-   <!-- End About Section -->
-
-    <!-- ======= Services Section ======= -->
-    <section id="achievements" class="achievements-mf pt-5 route">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="title-box text-center">
-              <h3 class="title-a">
-                Achievements
-              </h3>
-              <p class="subtitle-a">
-                Here are a few of my achievements throught my time!!
-              </p>
-              <div class="line-mf"></div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4">
-            <div class="service-box">
-              <div class="service-ico">
-                <span class="ico-circle"><i class="bi bi-briefcase"></i></span>
-              </div>
-              <div class="service-content">
-                <h2 class="s-title">Project Manager</h2>
-                <p class="s-description text-center">
-                 I volunteered at the Indian Consulate in Jeddah, Saudi Arabia, managing projects and organizing cultural events for the Indian community. 
-                  It was rewarding to witness the joy and unity these events brought. 
-                  Through this experience, I enhanced my project management skills and gained a deeper appreciation for community service.
-                  It was a transformative endeavor that left a lasting impact.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="service-box">
-              <div class="service-ico">
-                <span class="ico-circle"><i class="bi bi-card-checklist"></i></span>
-              </div>
-              <div class="service-content">
-                <h2 class="s-title">Web Development</h2>
-                <p class="s-description text-center">
-                  With a budding passion for web development, I have embarked on several small projects to hone my skills.
-                  While I am still in the early stages of my journey, I have a solid understanding of web development concepts
-                  and have successfully executed projects with enthusiasm and creativity. I am excited to continue learning and growing 
-                  in the field, bringing my fresh perspective and determination to every web development endeavor.
-
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="service-box">
-              <div class="service-ico">
-                <span class="ico-circle"><i class="bi bi-bar-chart"></i></span>
-              </div>
-              <div class="service-content">
-                <h2 class="s-title">Martial Arts</h2>
-                <p class="s-description text-center">
-                  With six years of dedicated training in karate, I have achieved a black belt rank, showcasing my commitment to the discipline.
-                  I have also explored other combat styles like Muay Thai, boxing, shadow boxing, and weapon fighting.
-                  These experiences have enhanced my versatility and taught me valuable qualities such as discipline and resilience.
-                  My martial arts journey continues to shape me both physically and mentally, fueling my passion for continuous growth.
-
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="service-box">
-              <div class="service-ico">
-                <span class="ico-circle"><i class="bi bi-binoculars"></i></span>
-              </div>
-              <div class="service-content">
-                <h2 class="s-title">Dean's Honour role</h2>
-                <p class="s-description text-center">
-                  In my first year of studies, I achieved a commendable 3.6 GPA and was honored with a place on the Dean's Honor Roll.
-                  Through dedication and hard work, I maintained a strong academic performance, demonstrating my commitment to
-                  excellence in my studies. This recognition reflects my passion for learning and my ability to consistently deliver high-quality
-                  work. I am proud of this achievement and motivated to continue pursuing academic success throughout my educational journey.
-                  
-                                   
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="service-box">
-              <div class="service-ico">
-                <span class="ico-circle"><i class="bi bi-brightness-high"></i></span>
-              </div>
-              <div class="service-content">
-                <h2 class="s-title">Harvard MUN</h2>
-                <p class="s-description text-center">
-                  In my unforgettable experience at Harvard Model United Nations (HarvardMUN), I engaged in intense debates, 
-                  honed my diplomatic skills, and built lasting connections with students from around the world. This transformative 
-                  journey expanded my global perspective and empowered me to make a positive impact on global issues.
-       
-                  
-                  
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="service-box">
-              <div class="service-ico">
-                <span class="ico-circle"><i class="bi bi-calendar4-week"></i></span>
-              </div>
-              <div class="service-content">
-                <h2 class="s-title">Youngest Sales Rep</h2>
-                <p class="s-description text-center">
-                  In a remarkably short span of three months, I, as the youngest sales representative, have achieved remarkable success.
-                  Through my natural sales acumen and unwavering determination, I surpassed expectations and delivered outstanding numbers.
-                  By forging strong connections with clients, utilizing strategic selling techniques, and embracing a continuous learning mindset,
-                  I consistently closed deals and exceeded targets. I am proud of my accomplishments as a young sales professional and remain
-                  driven to accomplish even greater feats.
-
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          <strong>I'm a Mechatronics Engineering student</strong> with a practical, multi-disciplinary skill set — comfortable working across mechanical design, electronics, programming, and data. I don't just study systems; I build them.
+        </p>
+        <p>
+          My edge comes from experience outside the classroom. I've held professional sales roles, managed projects and large-scale events, and completed data analytics work through Google's certification program. I know how to communicate, execute, and deliver — not just theorize.
+        </p>
+        <p>
+          A <strong>3.6 GPA Dean's Honor Roll</strong> student, <strong>Harvard MUN</strong> delegate, and <strong>black belt martial artist</strong> — I bring the same focus and discipline to every project I take on. Whether it's writing code, modeling a part in SolidWorks, or analyzing a dataset, I show up ready to contribute.
+        </p>
       </div>
-    </section><!-- End Services Section -->
 
-    <!-- ======= Counter Section ======= -->
-    <div class="section-counter paralax-mf bg-image" style="background-image: url(assets/img/Background-pic.jpg)">
-      <div class="overlay-mf"></div>
-      <div class="container position-relative">
-        <div class="row">
-          <div class="col-sm-3 col-lg-3">
-            <div class="counter-box counter-box pt-4 pt-md-0">
-              <div class="counter-ico">
-                <span class="ico-circle"><i class="bi bi-check"></i></span>
+      <div class="reveal" style="transition-delay: 0.15s;">
+        <div class="profile-card">
+          <div class="profile-item">
+            <span class="profile-key">Name</span>
+            <span class="profile-val">Ahmed Junaid</span>
+          </div>
+          <div class="profile-item">
+            <span class="profile-key">Program</span>
+            <span class="profile-val">Mechatronics Engineering</span>
+          </div>
+          <div class="profile-item">
+            <span class="profile-key">Location</span>
+            <span class="profile-val">Toronto, ON, Canada</span>
+          </div>
+          <div class="profile-item">
+            <span class="profile-key">Email</span>
+            <span class="profile-val">ahmed.junaid13@outlook.com</span>
+          </div>
+          <div class="profile-item">
+            <span class="profile-key">Status</span>
+            <span class="profile-val" style="color: var(--accent2);">● Open to Opportunities</span>
+          </div>
+        </div>
 
-              </div>
-              <div class="counter-num">
-                <p data-purecounter-start="0" data-purecounter-end="450" data-purecounter-duration="1" class="counter purecounter"></p>
-                <span class="counter-text">HOURS WORKED</span>
-              </div>
+        <div class="skills-section">
+          <div class="skill-category reveal" data-delay="0.1">
+            <div class="skill-cat-label">Software & Programming</div>
+            <div class="skill-chips">
+              <span class="chip">C Programming</span>
+              <span class="chip">Python</span>
+              <span class="chip">R Language</span>
+              <span class="chip">HTML / CSS</span>
+              <span class="chip">JavaScript</span>
             </div>
           </div>
-          <div class="col-sm-3 col-lg-3">
-            <div class="counter-box pt-4 pt-md-0">
-              <div class="counter-ico">
-                <span class="ico-circle"><i class="bi bi-journal-richtext"></i></span>
-              </div>
-              <div class="counter-num">
-                <p data-purecounter-start="0" data-purecounter-end="5" data-purecounter-duration="1" class="counter purecounter">&nbsp;+</p>
-                <span class="counter-text">YEARS OF EXPERIENCE</span>
-              </div>
+          <div class="skill-category reveal" data-delay="0.2">
+            <div class="skill-cat-label">Engineering & Design</div>
+            <div class="skill-chips">
+              <span class="chip">SolidWorks</span>
+              <span class="chip">Mechatronics</span>
+              <span class="chip">Circuit Design</span>
+              <span class="chip">3D Modeling</span>
+              <span class="chip">Manufacturing</span>
             </div>
           </div>
-          <div class="col-sm-3 col-lg-3">
-            <div class="counter-box pt-4 pt-md-0">
-              <div class="counter-ico">
-                <span class="ico-circle"><i class="bi bi-people"></i></span>
-              </div>
-              <div class="counter-num">
-                <p data-purecounter-start="0" data-purecounter-end="20" data-purecounter-duration="1" class="counter purecounter"></p>
-                <span class="counter-text">TOTAL Projects</span>
-              </div>
+          <div class="skill-category reveal" data-delay="0.3">
+            <div class="skill-cat-label">Data & Analytics</div>
+            <div class="skill-chips">
+              <span class="chip">Google Analytics</span>
+              <span class="chip">Data Visualization</span>
+              <span class="chip">R / ggplot2</span>
+              <span class="chip">Case Studies</span>
             </div>
           </div>
-          <div class="col-sm-3 col-lg-3">
-            <div class="counter-box pt-4 pt-md-0">
-              <div class="counter-ico">
-                <span class="ico-circle"><i class="bi bi-award"></i></span>
-              </div>
-              <div class="counter-num">
-                <p data-purecounter-start="0" data-purecounter-end="50" data-purecounter-duration="1" class="counter purecounter">+</p>
-                <span class="counter-text">AWARDS WON</span>
-              </div>
-           </div>
-          </div>
-        </div>
-      </div>
-    </div><!-- End Counter Section -->
-
-    <!-- ======= Portfolio Section ======= -->
-    <section id="work" class="portfolio-mf sect-pt4 route">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="title-box text-center">
-            <h3 class="title-a">
-              My Projects
-            </h3>
-            <p class="subtitle-a">
-              You can find details of all the work I have recently done
-            </p>
-            <div class="line-mf"></div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="work-box">
-            <a href="assets/img/work-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox">
-              <div class="work-img">
-                <img src="assets/img/overall lamp1.png" alt="" class="img-fluid">
-              </div>
-            </a>
-            <div class="work-content">
-              <div class="row">
-                <div class="col-sm-8">
-                  <h2 class="w-title">Engineering Material Project</h2>
-                  <div class="w-more">
-                    <span class="w-ctegory">Woodwork</span> / <span class="w-date">18 Mar. 2023</span>
-                  </div>
-                </div>
-                <div class="col-sm-4">
-                  <div class="w-like">
-                    <a href="EngMaterials.html"> <span class="bi bi-plus-circle"></span></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="work-box">
-            <a href="assets/img/work-2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox">
-              <div class="work-img">
-                <img src="assets/img/EngDesignMain.jpg" alt="" class="img-fluid">
-              </div>
-            </a>
-            <div class="work-content">
-              <div class="row">
-                <div class="col-sm-8">
-                  <h2 class="w-title">Engineering Design Project</h2>
-                  <div class="w-more">
-                    <span class="w-ctegory">Coding/Manufacturing</span> / <span class="w-date">18 Sep. 2018</span>
-                  </div>
-                </div>
-                <div class="col-sm-4">
-                  <div class="w-like">
-                    <a href="EngDesign.html"> <span class="bi bi-plus-circle"></span></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="work-box">
-            <a href="assets/img/MarbleTrack.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox">
-              <div class="work-img">
-                <img src="assets/img/MarbleTrack.jpg" alt="" class="img-fluid">
-              </div>
-            </a>
-            <div class="work-content">
-              <div class="row">
-                <div class="col-sm-8">
-                  <h2 class="w-title">Recycled Marble Track</h2>
-                  <div class="w-more">
-                    <span class="w-ctegory">SolidWorks</span> / <span class="w-date">14 Dec. 2022</span>
-                  </div>
-                </div>
-                <div class="col-sm-4">
-                  <div class="w-like">
-                    <a href="MarbleTrack.html"> <span class="bi bi-plus-circle"></span></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="work-box">
-            <a href="assets/img/dataanylpic.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox">
-              <div class="work-img">
-                <img src="assets/img/dataanylpic.jpg" alt="" class="img-fluid">
-              </div>
-            </a>
-            <div class="work-content">
-              <div class="row">
-                <div class="col-sm-8">
-                  <h2 class="w-title">Data Analytics Case Study</h2>
-                  <div class="w-more">
-                    <span class="w-ctegory">Coursera</span> / <span class="w-date">08 May. 2023</span>
-                  </div>
-                </div>
-                <div class="col-sm-4">
-                  <div class="w-like">
-                    <a href="DataAnaly.html"> <span class="bi bi-plus-circle"></span></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="work-box">
-            <a href="assets/img/MazeMain.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox">
-              <div class="work-img">
-                <img src="assets/img/MazeMain.jpg" alt="" class="img-fluid">
-              </div>
-            </a>
-            <div class="work-content">
-              <div class="row">
-                <div class="col-sm-8">
-                  <h2 class="w-title">Maze Design</h2>
-                  <div class="w-more">
-                    <span class="w-ctegory">C-programming</span> / <span class="w-date">23 Apr. 2023</span>
-                  </div>
-                </div>
-                <div class="col-sm-4">
-                  <div class="w-like">
-                    <a href="Cpractice.html"> <span class="bi bi-plus-circle"></span></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="work-box">
-            <a href="assets/img/CarMazeMain.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox">
-              <div class="work-img">
-                <img src="assets/img/CarMazeMain.jpg" alt="" class="img-fluid">
-              </div>
-            </a>
-            <div class="work-content">
-              <div class="row">
-                <div class="col-sm-8">
-                  <h2 class="w-title">Car Through Obstacles!</h2>
-                  <div class="w-more">
-                    <span class="w-ctegory">Electrical Eng</span> / <span class="w-date">30 Mar. 2023</span>
-                  </div>
-                </div>
-                <div class="col-sm-4">
-                  <div class="w-like">
-                    <a href="CarObs.html"> <span class="bi bi-plus-circle"></span></a>
-                  </div>
-                </div>
-              </div>
+          <div class="skill-category reveal" data-delay="0.4">
+            <div class="skill-cat-label">Creative & Tools</div>
+            <div class="skill-chips">
+              <span class="chip">Adobe Photoshop</span>
+              <span class="chip">Adobe Animate</span>
+              <span class="chip">Web Development</span>
+              <span class="chip">Event Management</span>
             </div>
           </div>
         </div>
       </div>
     </div>
-       </section>
-    
-    <!-- End Portfolio Section -->
-<!-- ======= Testimonials Section ======= -->
-    <div class="testimonials paralax-mf bg-image" style="background-image: url(assets/img/gang.jpg)">
-      <div class="overlay-mf"></div>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
+  </section>
 
-            <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
-              <div class="swiper-wrapper">
+  <!-- ─── ACHIEVEMENTS ─── -->
+  <section id="achievements">
+    <div class="section-label">02 — What I've Done</div>
+    <h2 class="section-title">Achievements</h2>
 
-                <div class="swiper-slide">
-                  <div class="testimonial-box">
-                    <div class="author-test">
-                      <span class="author">Gandhi</span>
-                    </div>
-                    <div class="content-test">
-                      <p class="description lead">
-                        Live as if you were to die tomorrow.
-                        Learn as if you were to live forever.
-                      </p>
-                    </div>
-                  </div>
-                </div><!-- End testimonial item -->
-
-                <div class="swiper-slide">
-                  <div class="testimonial-box">
-                    <div class="author-test">
-                      
-                      <span class="author">William Shakespear</span>
-                    </div>
-                    <div class="content-test">
-                      <p class="description lead">
-                        Love me or hate me are both in my favor. If you love me, I'll always be in your heart.
-                        If you hate me, I'll always be in your mind.
-                      </p>
-                    </div>
-                  </div>
-                </div><!-- End testimonial item -->
-              </div>
-              <div class="swiper-pagination"></div>
-            </div>
-
-            <!-- <div id="testimonial-mf" class="owl-carousel owl-theme">
-          
-        </div> -->
-          </div>
-        </div>
+    <div class="achievements-grid">
+      <div class="achievement-card reveal">
+        <div class="achievement-num">01</div>
+        <span class="achievement-icon">🏛️</span>
+        <h3 class="achievement-title">Project Manager</h3>
+        <p class="achievement-desc">
+          Volunteered as a project manager for a large cultural organization, planning and executing community events end-to-end. 
+          Built strong project management instincts and a deep appreciation for community-led work.
+        </p>
       </div>
-    </div><!-- End Testimonials Section -->
-
-    <!-- ======= Blog Section ======= -->
-    <section id="personal" class="personal-mf sect-pt4 route">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="title-box text-center">
-              <h3 class="title-a">
-                Hobbies
-              </h3>
-              <p class="subtitle-a">
-               Have a look at thet hings I love to do when I am free !
-              </p>
-              <div class="line-mf"></div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4">
-            <div class="card card-blog">
-              <div class="card-img">
-                <a href="blog-single.html"><img src="assets/img/post-1.jpg" alt="" class="img-fluid"></a>
-              </div>
-              <div class="card-body">
-                <div class="card-category-box">
-                  <div class="card-category">
-                    <h6 class="category">Travel</h6>
-                  </div>
-                </div>
-                <h3 class="card-title"><a href="blog-single.html">See more ideas about Travel</a></h3>
-                <p class="card-description">
-                  
-I'm absolutely in love with traveling! It's a never-ending adventure that fuels my soul. 
-                  Join me in exploring the world and creating unforgettable memories! ✈️🌍 #TravelAddict
-                </p>
-              </div>
-              <div class="card-footer">
-                <div class="post-author">
-                  <a href="#">
-                                        
-                  </a>
-                </div>
-                <div class="post-date">
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card card-blog">
-              <div class="card-img">
-                <a href="blog-single.html"><img src="assets/img/post-2.jpg" alt="" class="img-fluid"></a>
-              </div>
-              <div class="card-body">
-                <div class="card-category-box">
-                  <div class="card-category">
-                    <h6 class="category">Cooking</h6>
-                  </div>
-                </div>
-                <h3 class="card-title"><a href="blog-single.html">See more ideas about my Cooking</a></h3>
-                <p class="card-description">
-                   The kitchen is my happy place, where I unleash my creativity and transform simple ingredients into 
-                  culinary masterpieces. Every dish I create is a labor of love, infused with flavors and techniques 
-                  that excite the taste buds. Cooking allows me to express myself, share my love with others, and create
-                  moments of pure delight around the dining table. Let's celebrate the joy of cooking together! 🍳🍽️ #FoodieLove
-                </p>
-              </div>
-              <div class="card-footer">
-                <div class="post-author">
-                  <a href="#">
-                    
-                    
-                  </a>
-                </div>
-                <div class="post-date">
-                
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card card-blog">
-              <div class="card-img">
-                <a href="blog-single.html"><img src="assets/img/post-3.jpg" alt="" class="img-fluid"></a>
-              </div>
-              <div class="card-body">
-                <div class="card-category-box">
-                  <div class="card-category">
-                    <h6 class="category">Home Projects</h6>
-                  </div>
-                </div>
-                <h3 class="card-title"><a href="blog-single.html">Look at the cool things I build in my free time</a></h3>
-                <p class="card-description">
-                  There's something incredibly satisfying about building and fixing things with my own two hands. 
-                  The thrill of bringing an idea to life or restoring something to its former glory is truly fulfilling. 
-                  Whether it's woodworking, tinkering with electronics, or repairing household items, I find joy in the process
-                  and the sense of accomplishment that comes with it. It's amazing how a little bit of creativity and 
-                  problem-solving can turn a vision into a reality. Let's keep building and fixing, one project at a time! 
-                </p>
-              </div>
-              <div class="card-footer">
-                <div class="post-author">
-                  <a href="#">
-                    
-                    
-                  </a>
-                </div>
-                <div class="post-date">
-                
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="achievement-card reveal" style="transition-delay:0.1s">
+        <div class="achievement-num">02</div>
+        <span class="achievement-icon">💻</span>
+        <h3 class="achievement-title">Web Developer</h3>
+        <p class="achievement-desc">
+          Built multiple projects from scratch with HTML, CSS, and JavaScript. 
+          Every site I ship is a step closer to mastering the full stack — driven by creativity and relentless iteration.
+        </p>
       </div>
-    </section><!-- End Blog Section -->
+      <div class="achievement-card reveal" style="transition-delay:0.2s">
+        <div class="achievement-num">03</div>
+        <span class="achievement-icon">🥋</span>
+        <h3 class="achievement-title">Martial Arts</h3>
+        <p class="achievement-desc">
+          Six years of karate training, earning a black belt rank. Expanded into Muay Thai, boxing, and weapon fighting.
+          Martial arts forged my discipline, resilience, and physical edge.
+        </p>
+      </div>
+      <div class="achievement-card reveal" style="transition-delay:0.3s">
+        <div class="achievement-num">04</div>
+        <span class="achievement-icon">🎓</span>
+        <h3 class="achievement-title">Dean's Honor Roll</h3>
+        <p class="achievement-desc">
+          Achieved a 3.6 GPA in my first year of engineering, earning a place on the Dean's Honor Roll. 
+          Academic excellence isn't a goal — it's a baseline.
+        </p>
+      </div>
+      <div class="achievement-card reveal" style="transition-delay:0.4s">
+        <div class="achievement-num">05</div>
+        <span class="achievement-icon">🌐</span>
+        <h3 class="achievement-title">Harvard MUN</h3>
+        <p class="achievement-desc">
+          Competed at Harvard Model United Nations — debating global issues, honing diplomatic skills, 
+          and connecting with students from across the world. A perspective-expanding, formative experience.
+        </p>
+      </div>
+      <div class="achievement-card reveal" style="transition-delay:0.5s">
+        <div class="achievement-num">06</div>
+        <span class="achievement-icon">📈</span>
+        <h3 class="achievement-title">Youngest Sales Rep</h3>
+        <p class="achievement-desc">
+          In three months as the youngest sales representative, exceeded targets through client relationship building, 
+          strategic selling, and an obsessive drive to close. Numbers don't lie.
+        </p>
+      </div>
+    </div>
+  </section>
 
-    <!-- ======= Contact Section ======= -->
-     <section id="contact" class="paralax-mf footer-paralax bg-image sect-mt4 route" style="background-image: url(assets/img/overlay-bg.jpg)">
-  <div class="overlay-mf"></div>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="contact-mf">
-          <div id="contact" class="box-shadow-full">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="title-box-2">
-                  <h5 class="title-left">
-                    Get in Touch
-                   </h5>
-                    </div>
-                    <div class="more-info">
-                      <p class="lead">
-                        Thanks for checking out my website! I'd love to connect with you and help with any
-                        questions or concerns you might have.
-                        Just drop a message or shoot me an email. We're here to make your experience awesome!
-
-
-                      </p>
-                      <ul class="list-ico">
-                        <li><span class="bi bi-geo-alt"></span> Toronto , ON ,  Canada</li>
-                        <li><span class="bi bi-envelope"></span> ahmed.junaid13@outlook.com</li>
-                      </ul>
-                </div>
-                <div class="socials">
-                   <ul>
-                        <li><a href="https://www.linkedin.com/in/ahmed-hamza-junaid-332154254"><span class="ico-circle"><i class="bi bi-linkedin"></i></span></a></li>
-                        <li><a href="https://github.com/ahmedjunaid13"><span class="ico-circle"><i class="bi bi-github"></i></span></a></li>
-                   </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+  <!-- ─── STATS ─── -->
+  <div id="stats">
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <div class="stat-num">450+</div>
+        <div class="stat-label">Hours Worked</div>
+      </div>
+      <div class="stat-item reveal" style="transition-delay:0.1s">
+        <div class="stat-num">5+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat-item reveal" style="transition-delay:0.2s">
+        <div class="stat-num">20</div>
+        <div class="stat-label">Total Projects</div>
+      </div>
+      <div class="stat-item reveal" style="transition-delay:0.3s">
+        <div class="stat-num">50+</div>
+        <div class="stat-label">Awards Won</div>
       </div>
     </div>
   </div>
-</section>
 
-    <!-- End Contact Section -->
+  <!-- ─── PROJECTS ─── -->
+  <section id="work">
+    <div class="section-label">03 — Built Things</div>
+    <h2 class="section-title">Projects</h2>
 
-  </main><!-- End #main -->
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <div class="project-category">Woodwork · Manufacturing</div>
+        <h3 class="project-title">Engineering Materials Project</h3>
+        <p class="project-desc">
+          A hands-on exploration of material properties through physical fabrication. 
+          Designed and built a functional wooden lamp from raw materials to finished product.
+        </p>
+        <div class="project-footer">
+          <span class="project-date">Mar 2023</span>
+          <a href="EngMaterials.html" class="project-arrow">↗</a>
+        </div>
+      </div>
+      <div class="project-card reveal" style="transition-delay:0.1s">
+        <div class="project-category">Coding · Manufacturing</div>
+        <h3 class="project-title">Engineering Design Project</h3>
+        <p class="project-desc">
+          Combined software and physical engineering — designed a mechatronics-based solution integrating 
+          coding with physical manufacturing processes.
+        </p>
+        <div class="project-footer">
+          <span class="project-date">Sep 2018</span>
+          <a href="EngDesign.html" class="project-arrow">↗</a>
+        </div>
+      </div>
+      <div class="project-card reveal" style="transition-delay:0.2s">
+        <div class="project-category">SolidWorks · 3D Design</div>
+        <h3 class="project-title">Recycled Marble Track</h3>
+        <p class="project-desc">
+          Designed and modeled a full marble run system from recycled materials using SolidWorks. 
+          A study in mechanism design and sustainable engineering.
+        </p>
+        <div class="project-footer">
+          <span class="project-date">Dec 2022</span>
+          <a href="MarbleTrack.html" class="project-arrow">↗</a>
+        </div>
+      </div>
+      <div class="project-card reveal" style="transition-delay:0.3s">
+        <div class="project-category">Coursera · Data Analytics</div>
+        <h3 class="project-title">Data Analytics Case Study</h3>
+        <p class="project-desc">
+          Google Data Analytics certificate capstone — a full end-to-end case study using R and data visualization 
+          tools to extract actionable business insights.
+        </p>
+        <div class="project-footer">
+          <span class="project-date">May 2023</span>
+          <a href="DataAnaly.html" class="project-arrow">↗</a>
+        </div>
+      </div>
+      <div class="project-card reveal" style="transition-delay:0.4s">
+        <div class="project-category">C Programming</div>
+        <h3 class="project-title">Maze Design</h3>
+        <p class="project-desc">
+          Built a functional maze-solving algorithm in C, implementing pathfinding logic and terminal-based 
+          visualization. Clean code meets elegant problem-solving.
+        </p>
+        <div class="project-footer">
+          <span class="project-date">Apr 2023</span>
+          <a href="Cpractice.html" class="project-arrow">↗</a>
+        </div>
+      </div>
+      <div class="project-card reveal" style="transition-delay:0.5s">
+        <div class="project-category">Electrical Engineering</div>
+        <h3 class="project-title">Car Through Obstacles</h3>
+        <p class="project-desc">
+          Engineered an autonomous car that navigates obstacle courses using sensor arrays and microcontroller logic. 
+          A real mechatronics system from concept to execution.
+        </p>
+        <div class="project-footer">
+          <span class="project-date">Mar 2023</span>
+          <a href="CarObs.html" class="project-arrow">↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <!-- ======= Footer ======= -->
+  <!-- ─── HOBBIES ─── -->
+  <section id="personal">
+    <div class="section-label">04 — Off the Clock</div>
+    <h2 class="section-title">Hobbies</h2>
+
+    <div class="hobbies-grid">
+      <div class="hobby-card reveal">
+        <div class="hobby-icon-bg">✈️</div>
+        <div class="hobby-label">Adventure</div>
+        <h3 class="hobby-title">Travel</h3>
+        <p class="hobby-desc">
+          Every destination adds a new layer of perspective. I collect experiences, cultures, and stories wherever I go — travel is how I reset, broaden my thinking, and come back sharper.
+        </p>
+      </div>
+      <div class="hobby-card reveal" style="transition-delay:0.15s">
+        <div class="hobby-icon-bg">🍳</div>
+        <div class="hobby-label">Culinary</div>
+        <h3 class="hobby-title">Cooking</h3>
+        <p class="hobby-desc">
+          The kitchen is my second workshop. Turning raw ingredients into something delicious 
+          follows the same principles as engineering — precision, creativity, and iteration.
+        </p>
+      </div>
+      <div class="hobby-card reveal" style="transition-delay:0.3s">
+        <div class="hobby-icon-bg">🔨</div>
+        <div class="hobby-label">Making</div>
+        <h3 class="hobby-title">Home Projects</h3>
+        <p class="hobby-desc">
+          Woodworking, electronics, repairs — there's a particular satisfaction in building with your hands. 
+          Every home project is a chance to solve a real problem with real tools.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CONTACT ─── -->
+  <section id="contact">
+    <div class="section-label">05 — Let's Talk</div>
+
+    <div class="contact-inner">
+      <div>
+        <h2 class="contact-title">Get In<br><span>Touch</span></h2>
+        <p class="contact-text">
+          Whether it's a collaboration, an opportunity, or just a conversation about mechatronics — 
+          I'm always open to connecting with interesting people doing interesting work.
+        </p>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📍</div>
+          <span class="contact-detail-text">Toronto, ON, Canada</span>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">✉️</div>
+          <span class="contact-detail-text">ahmed.junaid13@outlook.com</span>
+        </div>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/ahmed-hamza-junaid-332154254" class="social-link" target="_blank" title="LinkedIn">in</a>
+          <a href="https://github.com/ahmedjunaid13" class="social-link" target="_blank" title="GitHub">gh</a>
+        </div>
+      </div>
+
+      <div class="contact-cta-box reveal">
+        <div class="cta-heading">Ready to Work Together?</div>
+        <p class="cta-sub">
+          I'm currently open to internships, freelance projects, and collaborative opportunities in mechatronics, 
+          data analytics, and web development.
+        </p>
+        <div>
+          <a href="mailto:ahmed.junaid13@outlook.com" class="cta-btn">Send an Email →</a>
+          <a href="assets/img/Ahmed Junaid Resume .pdf" class="cta-btn cta-btn-outline" target="_blank">View Resume</a>
+        </div>
+
+        <div class="cta-cert-list">
+          <div class="cert-item">
+            <div class="cert-dot"></div>
+            <span>Professional Google Analytics Certificate</span>
+          </div>
+          <div class="cert-item">
+            <div class="cert-dot"></div>
+            <span>International Martial Arts — Karate</span>
+          </div>
+          <div class="cert-item">
+            <div class="cert-dot"></div>
+            <span>Harvard Model United Nations</span>
+          </div>
+          <div class="cert-item">
+            <div class="cert-dot"></div>
+            <span>Academic Certifications — Engineering</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
   <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="copyright-box">
-            <p class="copyright">&copy; Copyright <strong>AhmedJunaid</strong>. All Rights Reserved</p>
-            <div class="credits">
-              <!--
-              All the links in the footer should remain intact.
-              You can delete the links only if you purchased the pro version.
-              Licensing information: https://bootstrapmade.com/license/
-              Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=DevFolio
-            -->
-              Designed by <a href="https://ahmedjunaid13.github.io/">The legend himself</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer><!-- End  Footer -->
+    <span class="footer-copy">© 2024 Ahmed Junaid — All Rights Reserved</span>
+    <a href="#hero" class="footer-back">Back to top ↑</a>
+  </footer>
 
-  <div id="preloader"></div>
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <script>
+    // ─── CURSOR ───
+    const cursor = document.getElementById('cursor');
+    const cursorRing = document.getElementById('cursorRing');
+    let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/typed.js/typed.umd.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX; mouseY = e.clientY;
+      cursor.style.transform = `translate(${mouseX - 4}px, ${mouseY - 4}px)`;
+    });
 
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+    function animateRing() {
+      ringX += (mouseX - ringX) * 0.12;
+      ringY += (mouseY - ringY) * 0.12;
+      cursorRing.style.transform = `translate(${ringX - 16}px, ${ringY - 16}px)`;
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
 
+    // ─── SCROLL REVEAL ───
+    function checkReveals() {
+      document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight + 100) {
+          const d = el.dataset.delay;
+          if (d) el.style.transitionDelay = d + 's';
+          el.classList.add('visible');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', checkReveals, { passive: true });
+    window.addEventListener('resize', checkReveals);
+    checkReveals();
+    setTimeout(checkReveals, 150);
+    setTimeout(checkReveals, 500);
+
+    // ─── ACTIVE NAV ───
+    const sections = document.querySelectorAll('section[id], div[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 120) current = s.getAttribute('id');
+      });
+      navLinks.forEach(link => {
+        link.style.color = link.getAttribute('href') === '#' + current ? 'var(--white)' : '';
+      });
+    }, { passive: true });
+  </script>
 </body>
-
 </html>
+
